@@ -1,0 +1,251 @@
+/* Popup calendar — макет Data picker.svg */
+.g-date-picker {
+  --g-date-picker-selection-bg: #dbfffa;
+  --g-date-picker-selection-text: #00b39d;
+}
+
+/* ui.menu — класс на .dp__menu (vue-datepicker v11) */
+.dp__menu.g-date-picker__menu {
+  z-index: 9999 !important;
+
+  --g-date-picker-selection-bg: #dbfffa;
+  --g-date-picker-selection-text: #00b39d;
+
+  --dp-font-family: var(--font-family-base, Inter, sans-serif);
+  --dp-font-size: 14px;
+  --dp-border-radius: 16px;
+  --dp-menu-border-color: #d9d9d9;
+  --dp-menu-padding: 12px 16px 16px;
+  --dp-menu-min-width: 303px;
+
+  --dp-cell-size: 36px;
+  --dp-cell-border-radius: 12px;
+  --dp-cell-padding: 0;
+  --dp-row-margin: 2px 0;
+  --dp-calendar-header-cell-padding: 0 0 8px;
+
+  --dp-text-color: #0b0b0b;
+  --dp-secondary-color: #7f7f7f;
+  --dp-hover-color: rgba(11, 11, 11, 0.05);
+  --dp-hover-text-color: #0b0b0b;
+  --dp-hover-icon-color: #0b0b0b;
+
+  /* перебиваем dp__theme_light (#1976d2) */
+  --dp-primary-color: #dbfffa !important;
+  --dp-primary-text-color: #00b39d !important;
+  --dp-range-between-dates-background-color: #dbfffa !important;
+  --dp-range-between-dates-text-color: #00b39d !important;
+  --dp-range-between-border-color: transparent !important;
+
+  --dp-month-year-row-height: 36px;
+  --dp-month-year-row-button-size: 36px;
+  --dp-button-icon-height: 16px;
+
+  --dp-action-row-padding: 12px 0 0;
+  border-width: 1.5px;
+  box-shadow: none;
+}
+
+.dp__menu.g-date-picker__menu .dp__menu_inner {
+  padding: var(--dp-menu-padding);
+}
+.dp__menu_inner {
+  border-radius: 16px;
+}
+.dp__menu.g-date-picker__menu .dp__calendar_header {
+  font-weight: 500;
+  color: #7f7f7f;
+  text-transform: lowercase;
+}
+
+.dp__menu.g-date-picker__menu .dp__calendar_header_item {
+  height: auto;
+  width: var(--dp-cell-size);
+  padding: 0;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.dp__menu.g-date-picker__menu .dp__calendar_header_separator,
+.dp__menu.g-date-picker__menu .dp__arrow_top,
+.dp__menu.g-date-picker__menu .dp__arrow_bottom {
+  display: none;
+}
+
+.dp__menu.g-date-picker__menu .dp__cell_inner {
+  font-size: 14px;
+  font-weight: 500;
+  border: none;
+}
+
+.dp__menu.g-date-picker__menu .dp__cell_offset {
+  color: #7f7f7f;
+}
+
+.dp__menu.g-date-picker__menu .dp__today {
+  border: none !important;
+}
+
+/* Single — светло-серый круг, чёрный текст */
+.dp__menu.g-date-picker__menu--single .dp__active_date {
+  background: rgba(11, 11, 11, 0.05) !important;
+  color: #0b0b0b !important;
+}
+
+/* Range — светло-салатовый фон, teal-текст */
+.dp__menu.g-date-picker__menu--range .dp__range_start,
+.dp__menu.g-date-picker__menu--range .dp__range_end,
+.dp__menu.g-date-picker__menu--range .dp__range_between,
+.dp__menu.g-date-picker__menu--range .dp__active_date,
+.dp__menu.g-date-picker__menu--range .dp__cell_auto_range,
+.dp__menu.g-date-picker__menu--range .dp__cell_auto_range_start,
+.dp__menu.g-date-picker__menu--range .dp__cell_auto_range_end {
+  border-radius: 12px !important;
+  border: none !important;
+  background: #dbfffa !important;
+  color: #00b39d !important;
+}
+
+/* Month / year overlay — макет screen 3 */
+.dp__menu.g-date-picker__menu--month-overlay-open .dp__calendar,
+.dp__menu.g-date-picker__menu--month-overlay-open .dp__calendar_header,
+.dp__menu.g-date-picker__menu--month-overlay-open .dp__action_row {
+  display: none;
+}
+
+.dp__menu.g-date-picker__menu .dp__overlay {
+  border-radius: 16px;
+}
+
+.g-date-picker__month-overlay {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: 100%;
+  max-height: 280px;
+  padding: 4px 0;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #d9d9d9 transparent;
+}
+
+.g-date-picker__month-overlay::-webkit-scrollbar {
+  width: 4px;
+}
+
+.g-date-picker__month-overlay::-webkit-scrollbar-thumb {
+  border-radius: 9999px;
+  background: #d9d9d9;
+}
+
+.g-date-picker__year-section {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.g-date-picker__year-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  min-height: 36px;
+  padding: 0 8px 0 12px;
+  border: none;
+  border-radius: 12px;
+  background: transparent;
+  color: #0b0b0b;
+  font-family: var(--font-family-base);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.2;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.g-date-picker__year-toggle:hover,
+.g-date-picker__year-toggle._expanded {
+  background: rgba(11, 11, 11, 0.05);
+}
+
+.g-date-picker__year-toggle-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 9999px;
+  color: #7f7f7f;
+  box-shadow: inset 0 0 0 1px #d9d9d9;
+}
+
+.g-date-picker__year-toggle-icon._expanded {
+  color: #0b0b0b;
+}
+
+.g-date-picker__months-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 4px;
+  padding: 0 4px 4px;
+}
+
+.g-date-picker__month-btn {
+  min-height: 36px;
+  padding: 0 8px;
+  border: none;
+  border-radius: 12px;
+  background: transparent;
+  color: #0b0b0b;
+  font-family: var(--font-family-base);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.2;
+  cursor: pointer;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.g-date-picker__month-btn:hover {
+  background: rgba(11, 11, 11, 0.05);
+}
+
+.g-date-picker__month-btn._active {
+  background: #dbfffa !important;
+  color: #00b39d !important;
+}
+
+.dp__menu.g-date-picker__menu .dp__overlay_cell_active {
+  background: #dbfffa !important;
+  color: #00b39d !important;
+  font-weight: 500;
+}
+
+.dp__menu.g-date-picker__menu .dp__overlay_cell:hover,
+.dp__menu.g-date-picker__menu .dp__cell_in_between {
+  background: rgba(11, 11, 11, 0.05);
+  color: #0b0b0b;
+}
+
+.dp__menu.g-date-picker__menu .dp__overlay_col {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.dp__menu.g-date-picker__menu .dp__action_row {
+  justify-content: flex-start;
+  padding: 0 12px 12px;
+}
+
+.dp__menu.g-date-picker__menu .dp__action_buttons {
+  display: none;
+}
+
+.dp__menu.g-date-picker__menu .dp__selection_preview {
+  display: none;
+}
+
+.dp__menu.g-date-picker__menu {
+  background-color: #fff !important;
+}

@@ -1,0 +1,58 @@
+/* Токены UI-кита. На :root — чтобы Teleport (шиты фильтров) тоже видел цвета. */
+:root,
+.ui-kit,
+.auth-layout,
+.main-layout {
+  --g-button-dark: #0b0b0b;
+  --g-button-gray: #f7f7f7;
+  --g-button-white: #fff;
+  --g-button-fg-on-dark: #fff;
+  --g-button-fg-on-light: #0b0b0b;
+  --g-button-fg-disabled: #7f7f7f;
+  --g-button-overlay-hover: 0.05;
+  --g-button-overlay-active: 0.1;
+  --g-input-gray: #f7f7f7;
+  --g-input-border-color: #d9d9d9;
+  --g-input-placeholder: #7f7f7f;
+  --g-input-message: #7f7f7f;
+  --g-input-error: #fa4225;
+  --g-panel-bg: #fff;
+  --g-panel-radius: 20px;
+  --g-panel-pad: 16px;
+  --g-panel-gap: 24px;
+  --g-panel-icon-bg: #f7f7f7;
+  --g-panel-fg: #0b0b0b;
+  --g-panel-muted: #7f7f7f;
+  --g-panel-accent: #00b39d;
+  --g-panel-danger: #fa4225;
+  --g-panel-line: #eeeded;
+  --g-copy-size: 20px;
+  --g-copy-radius: 6px;
+  --g-skeleton-light: #f7f7f7;
+  --g-skeleton-dark: #e4e4e4;
+}
+
+/* Светлый → тёмный градиент, как в макете, а не бегущий блик. */
+.g-skeleton {
+  display: block;
+  background-color: var(--g-skeleton-light);
+  background-image: linear-gradient(89deg, #f5f5f5 -0.48%, #ebebeb 44.29%, #bdbaba 99.65%);
+  background-size: 200% 100%;
+  animation: g-skeleton-gradient 1.2s ease-in-out infinite alternate;
+}
+
+@keyframes g-skeleton-gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  100% {
+    background-position: 100% 50%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .g-skeleton {
+    animation: none;
+    background-position: 0% 50%;
+  }
+}
