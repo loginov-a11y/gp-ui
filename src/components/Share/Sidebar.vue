@@ -11,6 +11,8 @@
       :menu-items="menuItems"
       :user-name="userName"
       :logout-loading="logoutLoading"
+      :balance-amount="balanceAmount"
+      :balance-to="balanceTo"
       @toggle-chat="emit('toggle-chat')"
       @logout="emit('logout')"
     />
@@ -55,6 +57,8 @@
             :menu-items="menuItems"
             :user-name="userName"
             :logout-loading="logoutLoading"
+            :balance-amount="balanceAmount"
+            :balance-to="balanceTo"
             @navigate="closeMobile"
             @toggle-chat="onMobileChat"
             @logout="emit('logout')"
@@ -83,6 +87,10 @@ interface Props {
   userName?: string
   /** Спиннер на кнопке выхода. */
   logoutLoading?: boolean
+  /** Сумма «Доступно для вывода» — из доменного стора приложения. */
+  balanceAmount?: number | null
+  /** Куда ведёт клик по блоку баланса. */
+  balanceTo?: string
 }
 
 interface Emits {
@@ -95,7 +103,9 @@ const props = withDefaults(defineProps<Props>(), {
   mobileOpen: false,
   menuItems: () => [],
   userName: '',
-  logoutLoading: false
+  logoutLoading: false,
+  balanceAmount: null,
+  balanceTo: '/balance'
 })
 
 const emit = defineEmits<Emits>()

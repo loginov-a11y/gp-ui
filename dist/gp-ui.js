@@ -4867,7 +4867,9 @@ const U7 = { class: "sidebar-panel__card" }, N7 = { class: "sidebar-panel__profi
     mobileOpen: { type: Boolean, default: !1 },
     menuItems: { default: () => [] },
     userName: { default: "" },
-    logoutLoading: { type: Boolean, default: !1 }
+    logoutLoading: { type: Boolean, default: !1 },
+    balanceAmount: { default: null },
+    balanceTo: { default: "/balance" }
   },
   emits: ["update:mobileOpen", "toggle-chat", "logout"],
   setup(e, { emit: n }) {
@@ -4918,9 +4920,11 @@ const U7 = { class: "sidebar-panel__card" }, N7 = { class: "sidebar-panel__profi
             "menu-items": e.menuItems,
             "user-name": e.userName,
             "logout-loading": e.logoutLoading,
+            "balance-amount": e.balanceAmount,
+            "balance-to": e.balanceTo,
             onToggleChat: p[0] || (p[0] = (Z) => c("toggle-chat")),
             onLogout: p[1] || (p[1] = (Z) => c("logout"))
-          }, null, 8, ["menu-items", "user-name", "logout-loading"])
+          }, null, 8, ["menu-items", "user-name", "logout-loading", "balance-amount", "balance-to"])
         ]),
         (a(), H(I1, {
           defer: "",
@@ -4968,10 +4972,12 @@ const U7 = { class: "sidebar-panel__card" }, N7 = { class: "sidebar-panel__profi
                     "menu-items": e.menuItems,
                     "user-name": e.userName,
                     "logout-loading": e.logoutLoading,
+                    "balance-amount": e.balanceAmount,
+                    "balance-to": e.balanceTo,
                     onNavigate: d,
                     onToggleChat: r,
                     onLogout: p[2] || (p[2] = (Z) => c("logout"))
-                  }, null, 8, ["menu-items", "user-name", "logout-loading"])
+                  }, null, 8, ["menu-items", "user-name", "logout-loading", "balance-amount", "balance-to"])
                 ])
               ], 8, i8)) : b("", !0)
             ]),
@@ -4981,7 +4987,7 @@ const U7 = { class: "sidebar-panel__card" }, N7 = { class: "sidebar-panel__profi
       ], 64);
     };
   }
-}), C8 = /* @__PURE__ */ g(u8, [["__scopeId", "data-v-f4730987"]]), h8 = {
+}), C8 = /* @__PURE__ */ g(u8, [["__scopeId", "data-v-908f5865"]]), h8 = {
   class: "snackbar-host",
   "aria-live": "polite"
 }, f8 = /* @__PURE__ */ h({

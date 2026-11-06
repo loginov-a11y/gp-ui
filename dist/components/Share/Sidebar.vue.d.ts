@@ -6,6 +6,10 @@ interface Props {
     userName?: string;
     /** Спиннер на кнопке выхода. */
     logoutLoading?: boolean;
+    /** Сумма «Доступно для вывода» — из доменного стора приложения. */
+    balanceAmount?: number | null;
+    /** Куда ведёт клик по блоку баланса. */
+    balanceTo?: string;
 }
 declare const __VLS_export: import("vue").DefineComponent<Props, {}, {}, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, {} & {
     "toggle-chat": () => any;
@@ -18,6 +22,8 @@ declare const __VLS_export: import("vue").DefineComponent<Props, {}, {}, {}, {},
 }>, {
     menuItems: import("../../types/menu").GMenuItem[];
     userName: string;
+    balanceAmount: number | null;
+    balanceTo: string;
     logoutLoading: boolean;
     mobileOpen: boolean;
 }, {}, {}, {}, string, import("vue").ComponentProvideOptions, false, {}, any>;
