@@ -105,8 +105,10 @@ const props = withDefaults(
   }
 )
 
+const nativeNames: Record<string, string> = { ru: 'Русский', en: 'English' }
+
 const availableLocales = computed(() =>
-  props.locales ?? availableLocalesRaw.map((code) => ({ code, name: code.toUpperCase() }))
+  props.locales ?? availableLocalesRaw.map((code) => ({ code, name: nativeNames[code] ?? code.toUpperCase() }))
 )
 const currentLocaleIcon = computed(() => getLocaleIcon(locale.value))
 const currentLocaleCode = computed(() => String(locale.value).toUpperCase())
