@@ -1,5 +1,5 @@
 {
-  "name": "@loginov-a11y/gp-ui",
+  "name": "@gp/ui",
   "version": "0.1.5",
   "type": "module",
   "publishConfig": { "registry": "https://npm.pkg.github.com" },
