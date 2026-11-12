@@ -2,7 +2,10 @@
   <div class="sidebar-panel" :class="{ _mobile: mobile }">
     <div class="sidebar-panel__card">
       <div class="sidebar-panel__profile">
-        <div class="sidebar-panel__avatar" aria-hidden="true">{{ initials }}</div>
+        <div class="sidebar-panel__avatar" aria-hidden="true">
+          <img v-if="avatarUrl" :src="avatarUrl" alt="" class="sidebar-panel__avatar-img" />
+          <template v-else>{{ initials }}</template>
+        </div>
         <div class="sidebar-panel__who">
           <p class="sidebar-panel__welcome">{{ $t('terminal.nav.welcome') }}</p>
           <p v-if="mounted" class="sidebar-panel__name" :title="displayName">{{ displayName }}</p>
@@ -12,12 +15,18 @@
       <div v-if="balanceAmount !== null" class="sidebar-panel__balance-wrap">
         <button type="button" class="sidebar-panel__balance" @click="goBalance">
           <span class="sidebar-panel__balance-label">
-            <IconsCoins v-if="!mobile" class="sidebar-panel__balance-coins" :size="16" />
+            <IconsCoins class="sidebar-panel__balance-coins" :size="16" />
             {{ $t('terminal.nav.availableForWithdraw') }}
           </span>
           <span class="sidebar-panel__balance-row">
             <span class="sidebar-panel__balance-amount">{{ formatRub(balanceAmount ?? 0) }}</span>
             <IconsArrowCircleRight :size="16" class="sidebar-panel__balance-arrow" />
+          </span>
+          <span v-if="balancePeriodAmount != null" class="sidebar-panel__balance-period">
+            <span class="sidebar-panel__balance-period-label">{{ balancePeriodLabel }}</span>
+            <span class="sidebar-panel__balance-period-value">
+              {{ formatRub(balancePeriodAmount) }}
+            </span>
           </span>
         </button>
       </div>
@@ -33,6 +42,21 @@
           @click="emit('navigate')"
         />
       </nav>
+    </div>
+
+    <div v-if="links.length" class="sidebar-panel__links">
+      <GMenuButton
+        v-for="link in links"
+        :key="link.key"
+        :size="mobile ? 'md' : 'sm'"
+        class="sidebar-panel__link"
+        @click="openLink(link.url)"
+      >
+        <template v-if="link.icon" #leading>
+          <component :is="link.icon" :size="mobile ? 20 : 16" />
+        </template>
+        {{ link.label }}
+      </GMenuButton>
     </div>
 
     <div class="sidebar-panel__footer">
@@ -97,6 +121,7 @@ import { computed, onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import SidebarItem from './SidebarItem.vue'
 import GButton from '~/ui-kit/GButton.vue'
+import GMenuButton from '~/ui-kit/GMenuButton.vue'
 import GIconButton from '~/ui-kit/GIconButton.vue'
 import IconsCoins from '~/components/icons/Coins.vue'
 import IconsArrowCircleRight from '~/components/icons/ArrowCircleRight.vue'
@@ -115,8 +140,13 @@ const props = withDefaults(
     mobile?: boolean
     /** Имя в приветствии. */
     userName?: string
+    /** Фото вместо инициалов в приветствии. */
+    avatarUrl?: string
     /** Сумма на карточке баланса; без неё карточка не рисуется. */
     balanceAmount?: number | null
+    /** Вторая строка баланса («В текущем периоде»): сумма и подпись. */
+    balancePeriodAmount?: number | null
+    balancePeriodLabel?: string
     /** Куда ведёт клик по карточке баланса. */
     balanceTo?: string
     /** Пункты меню (desktopOnly/mobileOnly фильтруются по mobile). */
@@ -133,7 +163,10 @@ const props = withDefaults(
   {
     mobile: false,
     userName: '',
+    avatarUrl: '',
     balanceAmount: null,
+    balancePeriodAmount: null,
+    balancePeriodLabel: '',
     balanceTo: '/balance',
     menuItems: () => [],
     docsUrl: '',
@@ -183,6 +216,8 @@ const openDocs = () => {
 }
 
 const openLink = (url: string) => {
+  // Пустой/# — ссылка-заглушка до появления реального URL.
+  if (!url || url === '#') return
   window.open(url, '_blank', 'noopener,noreferrer')
 }
 
@@ -253,6 +288,14 @@ const handleLogout = () => {
   font-weight: 500;
   letter-spacing: -0.22px;
   line-height: 1;
+  overflow: hidden;
+}
+
+.sidebar-panel__avatar-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
 }
 
 .sidebar-panel__who {
@@ -285,12 +328,12 @@ const handleLogout = () => {
   flex-direction: column;
   gap: 12px;
   width: 100%;
-  height: 72px;
+  min-height: 72px;
   margin: 0;
   padding: 12px;
   border: none;
   border-radius: 16px;
-  background: linear-gradient(86.87deg, #00443c 8.25%, #70afac 89.74%);
+  background: var(--gp-sidebar-balance-bg, linear-gradient(86.87deg, #00443c 8.25%, #70afac 89.74%));
   color: #fff;
   text-align: left;
   cursor: pointer;
@@ -341,6 +384,62 @@ const handleLogout = () => {
 .sidebar-panel__balance-arrow {
   flex-shrink: 0;
   color: #fff;
+}
+
+.sidebar-panel__balance-period {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  position: relative;
+  z-index: 1;
+  white-space: nowrap;
+}
+
+.sidebar-panel__balance-period-label {
+  font-size: 10px;
+  font-weight: 400;
+  line-height: 12px;
+  letter-spacing: -0.2px;
+  opacity: 0.6;
+}
+
+.sidebar-panel__balance-period-value {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  letter-spacing: -0.28px;
+}
+
+.sidebar-panel__links {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 10px;
+  padding: 8px;
+  border-radius: 24px;
+  background: #fff;
+}
+
+.sidebar-panel__links :deep(.g-menu-button) {
+  width: 100%;
+  letter-spacing: -0.42px;
+}
+
+.sidebar-panel._mobile .sidebar-panel__links {
+  margin: 0;
+  padding: 16px;
+  border-radius: 0;
+  background: transparent;
+  border-bottom: 1px solid #d9d9d9;
+}
+
+.sidebar-panel._mobile .sidebar-panel__links :deep(.g-menu-button--md) {
+  font-size: 14px;
+}
+
+.sidebar-panel._mobile .sidebar-panel__links :deep(.g-menu-button--md .g-menu-button__leading svg) {
+  width: 20px;
+  height: 20px;
 }
 
 .sidebar-panel__nav {

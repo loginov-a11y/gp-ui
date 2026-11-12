@@ -10,9 +10,15 @@
       class="sidebar__panel"
       :menu-items="menuItems"
       :user-name="userName"
+      :avatar-url="avatarUrl"
       :logout-loading="logoutLoading"
       :balance-amount="balanceAmount"
       :balance-to="balanceTo"
+      :balance-period-amount="balancePeriodAmount"
+      :balance-period-label="balancePeriodLabel"
+      :docs-url="docsUrl"
+      :links="links"
+      :chat-enabled="chatEnabled"
       @toggle-chat="emit('toggle-chat')"
       @logout="emit('logout')"
     />
@@ -56,9 +62,15 @@
             class="sidebar-sheet__body"
             :menu-items="menuItems"
             :user-name="userName"
+            :avatar-url="avatarUrl"
             :logout-loading="logoutLoading"
             :balance-amount="balanceAmount"
             :balance-to="balanceTo"
+            :balance-period-amount="balancePeriodAmount"
+            :balance-period-label="balancePeriodLabel"
+            :docs-url="docsUrl"
+            :links="links"
+            :chat-enabled="chatEnabled"
             @navigate="closeMobile"
             @toggle-chat="onMobileChat"
             @logout="emit('logout')"
@@ -85,12 +97,23 @@ interface Props {
   menuItems?: import('~/types/menu').GMenuItem[]
   /** Имя/компания пользователя для профиля в панели — из доменного стора приложения. */
   userName?: string
+  /** Фото вместо инициалов в профиле. */
+  avatarUrl?: string
   /** Спиннер на кнопке выхода. */
   logoutLoading?: boolean
   /** Сумма «Доступно для вывода» — из доменного стора приложения. */
   balanceAmount?: number | null
   /** Куда ведёт клик по блоку баланса. */
   balanceTo?: string
+  /** Вторая строка карточки баланса («В текущем периоде»). */
+  balancePeriodAmount?: number | null
+  balancePeriodLabel?: string
+  /** URL «Документации» в футере — пусто = неактивная кнопка. */
+  docsUrl?: string
+  /** Внешние ссылки отдельной карточкой под меню («Маркетинг-кит» и т.п.). */
+  links?: import('~/types/menu').GSidebarLink[]
+  /** Доступность чата поддержки. */
+  chatEnabled?: boolean
 }
 
 interface Emits {
@@ -103,9 +126,15 @@ const props = withDefaults(defineProps<Props>(), {
   mobileOpen: false,
   menuItems: () => [],
   userName: '',
+  avatarUrl: '',
   logoutLoading: false,
   balanceAmount: null,
-  balanceTo: '/balance'
+  balanceTo: '/balance',
+  balancePeriodAmount: null,
+  balancePeriodLabel: '',
+  docsUrl: '',
+  links: () => [],
+  chatEnabled: false
 })
 
 const emit = defineEmits<Emits>()

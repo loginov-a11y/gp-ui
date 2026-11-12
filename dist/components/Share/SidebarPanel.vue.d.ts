@@ -7,8 +7,13 @@ type __VLS_Props = {
     mobile?: boolean;
     /** Имя в приветствии. */
     userName?: string;
+    /** Фото вместо инициалов в приветствии. */
+    avatarUrl?: string;
     /** Сумма на карточке баланса; без неё карточка не рисуется. */
     balanceAmount?: number | null;
+    /** Вторая строка баланса («В текущем периоде»): сумма и подпись. */
+    balancePeriodAmount?: number | null;
+    balancePeriodLabel?: string;
     /** Куда ведёт клик по карточке баланса. */
     balanceTo?: string;
     /** Пункты меню (desktopOnly/mobileOnly фильтруются по mobile). */
@@ -34,7 +39,10 @@ declare const __VLS_export: import("vue").DefineComponent<__VLS_Props, {}, {}, {
     mobile: boolean;
     menuItems: GMenuItem[];
     userName: string;
+    avatarUrl: string;
     balanceAmount: number | null;
+    balancePeriodAmount: number | null;
+    balancePeriodLabel: string;
     balanceTo: string;
     docsUrl: string;
     links: GSidebarLink[];

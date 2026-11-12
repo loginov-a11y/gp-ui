@@ -18,7 +18,9 @@ export default defineConfig({
       entry: resolve(src, 'index.ts'),
       name: 'GpUi',
       formats: ['es', 'cjs'],
-      fileName: (format) => (format === 'es' ? 'gp-ui.js' : 'gp-ui.cjs')
+      fileName: (format) => (format === 'es' ? 'gp-ui.js' : 'gp-ui.cjs'),
+      // package.json exports './style.css' → './dist/ui.css' — имя файла фиксируем.
+      cssFileName: 'ui'
     },
     rollupOptions: {
       external: [
