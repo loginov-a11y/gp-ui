@@ -1,5 +1,7 @@
 type __VLS_Props = {
     open: boolean;
+    /** Текст кнопки в футере, по умолчанию — common.save. */
+    saveLabel?: string;
 };
 declare const __VLS_template: () => {
     __VLS_Slots: {

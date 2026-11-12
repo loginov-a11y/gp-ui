@@ -19,12 +19,12 @@ declare const __VLS_export: import("vue").DefineComponent<Props, {
     textareaRef: import("vue").Ref<HTMLTextAreaElement | null, HTMLTextAreaElement | null>;
 }, {}, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, {
     "update:modelValue": (value: string) => any;
-    focus: (event: FocusEvent) => any;
     blur: (event: FocusEvent) => any;
+    focus: (event: FocusEvent) => any;
 }, string, import("vue").PublicProps, Readonly<Props> & Readonly<{
     "onUpdate:modelValue"?: ((value: string) => any) | undefined;
-    onFocus?: ((event: FocusEvent) => any) | undefined;
     onBlur?: ((event: FocusEvent) => any) | undefined;
+    onFocus?: ((event: FocusEvent) => any) | undefined;
 }>, {
     disabled: boolean;
     class: string | Record<string, boolean> | (string | Record<string, boolean>)[];

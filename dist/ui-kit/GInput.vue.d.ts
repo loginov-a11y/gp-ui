@@ -38,22 +38,22 @@ declare const __VLS_base: import("vue").DefineComponent<Props, {
     inputRef: import("vue").Ref<HTMLInputElement | null, HTMLInputElement | null>;
 }, {}, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, {
     "update:modelValue": (value: string) => any;
-    focus: (event: FocusEvent) => any;
     blur: (event: FocusEvent) => any;
+    focus: (event: FocusEvent) => any;
     keydown: (event: KeyboardEvent) => any;
 }, string, import("vue").PublicProps, Readonly<Props> & Readonly<{
     "onUpdate:modelValue"?: ((value: string) => any) | undefined;
-    onFocus?: ((event: FocusEvent) => any) | undefined;
     onBlur?: ((event: FocusEvent) => any) | undefined;
+    onFocus?: ((event: FocusEvent) => any) | undefined;
     onKeydown?: ((event: KeyboardEvent) => any) | undefined;
 }>, {
     type: string;
     disabled: boolean;
     variant: GInputVariant;
     class: string | Record<string, boolean> | (string | Record<string, boolean>)[];
-    readonly: boolean;
     error: boolean;
     message: string;
+    readonly: boolean;
 }, {}, {}, {}, string, import("vue").ComponentProvideOptions, false, {}, any>;
 declare const __VLS_export: __VLS_WithSlots<typeof __VLS_base, __VLS_Slots>;
 declare const _default: typeof __VLS_export;

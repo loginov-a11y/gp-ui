@@ -102,10 +102,10 @@ const emit = defineEmits<{
   --g-snackbar-icon: #0d9cd5;
   display: flex;
   align-items: flex-start;
-  gap: 18px;
+  gap: 16px;
   width: 320px;
   min-height: 74px;
-  padding: 16px 18px 16px 16px;
+  padding: 16px;
   border-radius: 20px;
   background: var(--g-snackbar-bg);
   box-shadow:
@@ -133,25 +133,23 @@ const emit = defineEmits<{
 .g-snackbar__icon {
   display: flex;
   flex-shrink: 0;
-  width: 18px;
-  height: 18px;
-  margin-top: 1px;
+  width: 20px;
+  height: 20px;
   color: var(--g-snackbar-icon);
 }
 
 .g-snackbar__icon svg {
   display: block;
-  width: 18px;
-  height: 18px;
+  width: 20px;
+  height: 20px;
 }
 
 .g-snackbar__body {
   display: flex;
   flex: 1 1 auto;
   flex-direction: column;
-  gap: 4px;
+  gap: 2px;
   min-width: 0;
-  padding-top: 1px;
 }
 
 .g-snackbar__title,
@@ -162,16 +160,18 @@ const emit = defineEmits<{
 
 .g-snackbar__title {
   color: var(--g-button-fg-on-light, #0b0b0b);
-  font-size: 14px;
+  font-size: 16px;
   font-weight: 500;
   line-height: 20px;
+  letter-spacing: -0.48px;
 }
 
 .g-snackbar__description {
   color: var(--g-input-message, #7f7f7f);
-  font-size: 12px;
+  font-size: 14px;
   font-weight: 400;
-  line-height: 16px;
+  line-height: 20px;
+  letter-spacing: -0.28px;
   overflow-wrap: break-word;
 }
 
@@ -180,9 +180,8 @@ const emit = defineEmits<{
   flex-shrink: 0;
   align-items: center;
   justify-content: center;
-  width: 16px;
-  height: 16px;
-  margin-top: 2px;
+  width: 20px;
+  height: 20px;
   padding: 0;
   border: none;
   background: transparent;
@@ -192,8 +191,8 @@ const emit = defineEmits<{
 
 .g-snackbar__close svg {
   display: block;
-  width: 10px;
-  height: 10px;
+  width: 12px;
+  height: 12px;
 }
 
 .g-snackbar__close:hover {

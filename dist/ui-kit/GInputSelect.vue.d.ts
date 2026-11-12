@@ -53,9 +53,9 @@ declare const __VLS_base: import("vue").DefineComponent<Props, {}, {}, {}, {}, i
     disabled: boolean;
     variant: GInputVariant;
     class: string;
-    sheet: boolean;
     error: boolean;
     message: string;
+    sheet: boolean;
     toggleLabel: string;
     emptyLabel: string;
 }, {}, {}, {}, string, import("vue").ComponentProvideOptions, false, {}, any>;
