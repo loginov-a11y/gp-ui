@@ -36,11 +36,18 @@
         <button
           type="button"
           class="sidebar-sheet__backdrop"
+          :style="sheetBackdropStyle"
           :aria-label="$t('common.close')"
           @click="closeMobile"
         />
-        <div class="sidebar-sheet__panel">
-          <div class="sidebar-sheet__head">
+        <div ref="sheetPanel" class="sidebar-sheet__panel" :style="sheetPanelStyle">
+          <div
+            class="sidebar-sheet__head"
+            @pointerdown="onSheetPointerDown"
+            @pointermove="onSheetPointerMove"
+            @pointerup="onSheetPointerEnd"
+            @pointercancel="onSheetPointerEnd"
+          >
             <button
               type="button"
               class="sidebar-sheet__handle"
@@ -82,7 +89,7 @@
 </template>
 
 <script setup lang="ts">import { useBrandLogo } from '~/composables/useBrandLogo'
-import { watch, onMounted, onUnmounted } from 'vue'
+import { computed, ref, watch, onMounted, onUnmounted } from 'vue'
 import { useRoute } from 'vue-router'
 
 import SidebarPanel from './SidebarPanel.vue'
@@ -167,6 +174,57 @@ watch(
 
 const onKeydown = (event: KeyboardEvent) => {
   if (event.key === 'Escape' && props.mobileOpen) closeMobile()
+}
+
+// Свайп вниз за шапку шторки: тянем панель за пальцем, бэкдроп тает;
+// отпустили за порогом — доводим до низа и закрываем, иначе отскок.
+const sheetPanel = ref<HTMLElement | null>(null)
+const dragY = ref(0)
+const sheetDragging = ref(false)
+const sheetAnimating = ref(false)
+let dragStartY = 0
+
+const sheetPanelStyle = computed(() => {
+  if (!sheetDragging.value && !sheetAnimating.value) return undefined
+  return {
+    transform: `translateY(${dragY.value}px)`,
+    transition: sheetAnimating.value ? 'transform 0.24s ease-out' : undefined
+  }
+})
+
+const sheetBackdropStyle = computed(() => {
+  if (!sheetDragging.value && !sheetAnimating.value) return undefined
+  return { opacity: String(1 - Math.min(1, dragY.value / 240)) }
+})
+
+const onSheetPointerDown = (event: PointerEvent) => {
+  if (event.button !== 0) return
+  ;(event.currentTarget as HTMLElement).setPointerCapture(event.pointerId)
+  dragStartY = event.clientY
+  sheetDragging.value = true
+  sheetAnimating.value = false
+}
+
+const onSheetPointerMove = (event: PointerEvent) => {
+  if (!sheetDragging.value) return
+  dragY.value = Math.max(0, event.clientY - dragStartY)
+}
+
+const onSheetPointerEnd = () => {
+  if (!sheetDragging.value) return
+  sheetDragging.value = false
+  sheetAnimating.value = true
+  const panelHeight = sheetPanel.value?.offsetHeight ?? 0
+  if (dragY.value > 90 || (panelHeight > 0 && dragY.value > panelHeight * 0.3)) {
+    dragY.value = Math.max(dragY.value, panelHeight)
+    closeMobile()
+  } else {
+    dragY.value = 0
+  }
+  window.setTimeout(() => {
+    sheetAnimating.value = false
+    dragY.value = 0
+  }, 260)
 }
 
 onMounted(() => {
@@ -256,6 +314,9 @@ onUnmounted(() => {
   height: 48px;
   padding-top: 4px;
   flex-shrink: 0;
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
 }
 
 .sidebar-sheet__handle {
